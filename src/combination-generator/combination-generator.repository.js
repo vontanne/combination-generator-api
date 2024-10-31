@@ -1,5 +1,33 @@
 import { pool } from "../config/db.config.js";
 
+export async function findLabel(label) {
+  const connection = await pool.getConnection();
+  try {
+    const [rows] = await connection.query(
+      "SELECT id FROM items WHERE item = ?",
+      [label]
+    );
+    return rows.length > 0;
+  } finally {
+    connection.release();
+  }
+}
+
+export async function storeLabel(label) {
+  const connection = await pool.getConnection();
+  try {
+    const [result] = await connection.query(
+      "INSERT INTO items (item) VALUES (?)",
+      [label]
+    );
+    return result.insertId;
+  } catch (error) {
+    console.error("Failed to store label:", error);
+  } finally {
+    connection.release();
+  }
+}
+
 export async function findResponseByCustomId(customId) {
   const connection = await pool.getConnection();
   try {

@@ -3,10 +3,20 @@ import {
   getCombinationByResponseId,
   storeCombination,
   storeResponse,
+  findLabel,
+  storeLabel,
 } from "./combination-generator.repository.js";
 
 export async function generateValidCombinations(items, length) {
   const labels = generateLabels(items);
+
+  for (const label of labels) {
+    const exists = await findLabel(label);
+    if (!exists) {
+      await storeLabel(label);
+    }
+  }
+
   const combinations = generateCombinations(labels, length);
   const customId = generateCustomId(items, length);
 
