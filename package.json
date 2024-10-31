@@ -1,0 +1,22 @@
+{
+  "name": "combination-generator-api",
+  "version": "1.0.0",
+  "description": "A Node.js API to generate valid combinations from a list of items.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "type": "module",
+  "keywords": [
+    "nodejs",
+    "api",
+    "combinations",
+    "mysql"
+  ],
+  "author": "Hovhannes Hovhannisyan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mysql2": "^3.11.3"
+  }
+}
