@@ -28,18 +28,18 @@ export async function storeLabel(label) {
   }
 }
 
-export async function findResponseByCustomId(customId) {
-  const connection = await pool.getConnection();
-  try {
-    const [rows] = await connection.query(
-      "SELECT id FROM responses WHERE id = ?",
-      [customId]
-    );
-    return rows.length > 0 ? rows[0].id : null;
-  } finally {
-    connection.release();
-  }
-}
+// export async function findResponseByCustomId(customId) {
+//   const connection = await pool.getConnection();
+//   try {
+//     const [rows] = await connection.query(
+//       "SELECT id FROM responses WHERE id = ?",
+//       [customId]
+//     );
+//     return rows.length > 0 ? rows[0].id : null;
+//   } finally {
+//     connection.release();
+//   }
+// }
 
 export async function getCombinationByResponseId(responseId) {
   const connection = await pool.getConnection();

@@ -1,5 +1,4 @@
 import {
-  findResponseByCustomId,
   getCombinationByResponseId,
   storeCombination,
   storeResponse,
@@ -17,18 +16,15 @@ export async function generateValidCombinations(items, length) {
     }
   }
 
-  const combinations = generateCombinations(labels, length);
   const customId = generateCustomId(items, length);
+  const existedResponse = await getCombinationByResponseId(customId);
 
-  const existingResponseId = await findResponseByCustomId(customId);
-
-  if (existingResponseId) {
-    const { combinationId, combination } = await getCombinationByResponseId(
-      existingResponseId
-    );
+  if (existedResponse) {
+    const { combinationId, combination } = existedResponse;
     return { id: combinationId, combinations: combination };
   }
 
+  const combinations = generateCombinations(labels, length);
   const combinationId = await storeCombination(combinations);
 
   await storeResponse(customId, combinationId);
